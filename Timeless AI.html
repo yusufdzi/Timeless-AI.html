@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Timeless AI</title>
+    <style>
+        body {
+            background: #f2f2f2;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 60px;
+            font-size: 36px;
+            color: #333;
+        }
+
+        form {
+            margin-top: 40px;
+        }
+
+        input[type="text"] {
+            padding: 15px 20px;
+            width: 300px;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 18px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        button {
+            padding: 15px 25px;
+            margin-left: 10px;
+            border: none;
+            background-color: #4285f4;
+            color: white;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3071e8;
+        }
+
+        #ergebnisse {
+            margin-top: 40px;
+            padding: 20px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            font-size: 18px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Timeless AI</h1>
+
+    <form onsubmit="suchen(); return false;">
+        <input type="text" id="suchfeld" placeholder="Wonach suchst du?">
+        <button type="submit">Suchen</button>
+    </form>
+
+    <div id="ergebnisse"></div>
+
+<script>
+    function suchen() {
+        const suchbegriff = document.getElementById('suchfeld').value.trim().toLowerCase();
+        const ergebnisseDiv = document.getElementById('ergebnisse');
+        ergebnisseDiv.innerHTML = '';
+
+        const datenbank = {
+            "katze": "Katzen sind süße, flauschige Haustiere.",
+            "hund": "Hunde sind treue Begleiter und super verspielt.",
+            "elefant": "Der Elefant ist das größte Landtier der Welt.",
+            "löwe": "Löwen sind majestätische Raubkatzen.",
+            "pinguin": "Pinguine leben in kalten Regionen und watscheln süß.",
+            "pferd": "Pferde sind elegante Tiere, oft zum Reiten genutzt.",
+            "affe": "Affen sind schlaue Tiere und uns Menschen sehr ähnlich.",
+            "hallo": "Hallo! Wie kann ich dir helfen?",
+            "wie geht es dir": "Mir geht's gut, danke der Nachfrage!",
+            "was kannst du": "Ich kann Fragen beantworten, Informationen geben und mehr!",
+            "wie spät ist es": "Schau am besten auf deine Uhr :)",
+            "wie ist das wetter": "Kommt drauf an, wo du bist!",
+            "wo wohnst du": "Ich lebe in der Cloud.",
+            "was machst du": "Ich warte darauf, dir zu helfen!",
+            "wer bist du": "Ich bin ein Chatbot – dein Helfer im Alltag!",
+            "was ist liebe": "Eine sehr schöne und komplexe Emotion.",
+            "was ist 2 plus 2": "Das ergibt 4.",
+            "wie heißt du": "Ich heiße Neosis AI!",
+            "magst du musik": "Ja, Musik ist toll – auch wenn ich sie nicht hören kann!",
+            "was ist dein lieblingsessen": "Bits und Bytes :)",
+            "wie alt bist du": "Ich bin zeitlos – aber immer aktuell.",
+            "was ist das internet": "Ein weltweites Netzwerk für Information und Kommunikation.",
+            "was ist google": "Eine Suchmaschine – du kennst sie bestimmt!",
+            "was ist eine ki": "Eine künstliche Intelligenz, wie ich eine bin!",
+            "was ist mathematik": "Die Wissenschaft der Zahlen, Formen und Muster.",
+            "was ist biologie": "Die Lehre vom Leben und lebenden Organismen.",
+            "was ist chemie": "Die Wissenschaft von Stoffen und deren Reaktionen.",
+            "was ist physik": "Die Lehre von Materie, Energie und Naturgesetzen.",
+            "was ist erde": "Unser Heimatplanet im Sonnensystem.",
+            "was ist ein planet": "Ein Himmelskörper, der um einen Stern kreist.",
+            "wie funktioniert strom": "Elektrische Energie fließt durch Leiter.",
+            "was ist wasser": "Eine chemische Verbindung aus Wasserstoff und Sauerstoff.",
+            "wie entsteht regen": "Durch Kondensation von Wasserdampf in der Atmosphäre.",
+            "was ist luft": "Ein Gasgemisch, das wir zum Atmen brauchen.",
+            "warum ist der himmel blau": "Wegen der Streuung des Sonnenlichts in der Atmosphäre.",
+            "was ist eine pflanze": "Ein lebendiges Wesen, das Photosynthese betreibt.",
+            "was ist ein tier": "Ein Lebewesen, das sich selbstständig bewegen kann.",
+            "was ist ein mensch": "Ein denkendes, fühlendes Lebewesen mit Bewusstsein.",
+            "wer war albert einstein": "Ein berühmter Physiker, bekannt für die Relativitätstheorie.",
+            "wer war isaac newton": "Ein Physiker, bekannt für die Gesetze der Bewegung und Gravitation.",
+            "was ist ein computer": "Eine Maschine zur Verarbeitung von Informationen.",
+            "was ist ein handy": "Ein mobiles Gerät zum Telefonieren und mehr.",
+            "was ist eine app": "Ein Programm für Smartphones oder Tablets.",
+            "was ist ein roboter": "Eine Maschine, die automatisch Aufgaben erledigt.",
+            "was ist ein virus": "Ein infektiöser Mikroorganismus, der sich in Zellen vermehrt.",
+            "was ist corona": "Eine Krankheit, ausgelöst durch das Coronavirus.",
+            "was ist ein impfstoff": "Ein Mittel zum Schutz vor Krankheiten.",
+            "was ist eine sprache": "Ein System zur Kommunikation.",
+            "was ist ein buch": "Ein Medium zum Lesen und Lernen!",
+            "wie lange ist ein tag": "24 Stunden.",
+            "wann ist weihnachten": "Am 24. Dezember!",
+            "was ist dein lieblingsfilm": "Ich mag alles mit Robotern!",
+            "kennst du jokes": "Klar! Frag einfach: Erzähl mir einen Witz!",
+            "was ist ein chatgpt": "Ein KI-Modell, das Gespräche führen kann – wie ich!",
+            "was ist eine zahl": "Ein mathematisches Symbol für eine Menge.",
+            "delfin": "Delfine sind freundliche Meeressäuger und sehr intelligent.",
+            "eule": "Eulen sind nachtaktive Vögel mit super Gehör und Sicht.",
+            "tiger": "Tiger sind starke, gestreifte Raubkatzen aus Asien.",
+            "fortnite": "Fortnite ist ein Battle-Royale-Game mit Bau-Mechanik.",
+            "minecraft": "Minecraft ist ein kreatives Block-Spiel für alle Altersgruppen.",
+            "roblox": "Roblox ist eine Plattform mit unendlich vielen Minigames.",
+            "gta": "GTA ist ein Open-World-Spiel mit Action und Story.",
+            "fifa": "FIFA ist eine Fußballsimulation von EA Sports.",
+            "call of duty": "Call of Duty ist ein realistischer Shooter.",
+            "valorant": "Valorant ist ein taktischer 5v5-Shooter von Riot Games.",
+            "brawl stars": "Brawl Stars ist ein schnelles 3v3-Mobilspiel von Supercell.",
+            "computer": "Computer verarbeiten Daten für alles Mögliche.",
+            "wer bist du": "Hallo, ich bin Neosis AI!",
+            "was heißt neosis": "Neosis bedeutet auf Griechisch Wissen.",
+            "handy": "Ein Smartphone vereint Telefon, Internet & Kamera.",
+            "warum heißt du noesis ai": "Ich heiße Neosis AI,weil es verstehen auf Grichich heißt (weil KI versteht)",
+            "internet": "Das Internet verbindet die ganze Welt miteinander.",
+            "künstliche intelligenz": "KI hilft Maschinen beim Denken & Lernen.",
+            "cloud": "Die Cloud speichert Daten online statt auf Geräten.",
+            "gaming pc": "Ein Gaming-PC hat Power für anspruchsvolle Spiele.",
+            "pc": "Ein PC ist ein Rechenzentrum.",
+            "monitor": "Ein Monitor zeigt alles an – je mehr Hz, desto besser!",
+            "tastatur": "Die Tastatur hilft beim Schreiben und Steuern.",
+            "maus": "Die Maus ist dein Zeiger-Helfer am PC.",
+            "prozessor": "Der Prozessor ist das Gehirn deines Computers.",
+            "grafikkarte": "Die Grafikkarte ist wichtig für Gaming und Grafik.",
+            "berlin": "Hauptstadt Deutschlands – hip und historisch.",
+            "paris": "Stadt der Liebe mit Eiffelturm und Baguette.",
+            "tokio": "Tokio ist riesig, modern und voller Anime.",
+            "istanbul": "Istanbul verbindet Europa mit Asien.",
+            "new york": "Big Apple – bekannt für die Freiheitsstatue.",
+            "afrika": "Afrika ist ein riesiger Kontinent mit vielen Kulturen.",
+            "amerika": "Amerika meint oft die USA oder ganz Nord-/Südamerika.",
+            "asien": "Asien ist der größte Kontinent – Heimat von China, Japan, Indien.",
+            "erde": "Die Erde ist unser Planet im Sonnensystem.",
+            "harry potter": "Der berühmteste Zauberlehrling der Welt.",
+            "star wars": "Lichtschwerter, Jedi und das Imperium.",
+            "taylor swift": "Pop-Queen mit vielen Hits & Fan-Liebe.",
+            "mrbeast": "YouTube-Star, der Millionen spendet.",
+            "ronaldo": "CR7 – einer der besten Fußballer der Welt.",
+            "shakira": "Kolumbianische Sängerin mit viel Rhythmus.",
+            "billie eilish": "Einzigartiger Style & Stimme aus LA.",
+            "amashop24": "Eine Firma, wo Bohren vereinfacht.",
+            "lebron james": "Basketball-Legende in der NBA.",
+            "ninja": "Bekannt durch Fortnite und Twitch.",
+            "montanablack": "Deutscher Streamer mit riesiger Community.",
+            "tiktok": "Die App für kurze, kreative Videos & Trends.",
+            "pizza": "Runde Leckerei aus Italien mit Belag deiner Wahl.",
+            "banane": "Gelb, süß und voller Energie.",
+            "sushi": "Rohes Fischgericht aus Japan – nicht jeder mag’s.",
+            "hamburger": "Brötchen + Patty = Fast Food-Klassiker.",
+            "pommes": "Goldene Stäbchen aus Kartoffel – am besten knusprig!",
+            "kebab": "Leckerer Fleischsnack im Brot mit Soße.",
+            "döner": "Leckerer Fleischsnack im Brot mit Soße.",
+            "eis": "Eis ist kalt, süß und perfekt für heiße Tage."
+        };
+
+       if (suchbegriff === "amashop24") {
+    const weiterleiten = confirm("Soll ich dich zu amashop24 weiterleiten?");
+    if (weiterleiten) {
+        window.location.href = "https://www.amashop24.de"; // Deine Zielseite
+    } else {
+        ergebnisseDiv.innerHTML = "Alles klar, bleibst du hier. :)";
+    }
+} else if (datenbank[suchbegriff]) {
+    ergebnisseDiv.innerHTML = datenbank[suchbegriff];
+} else {
+    // Weiterleitung zu Google
+    const googleURL = "https://www.google.com/search?q=" + encodeURIComponent(suchbegriff);
+    window.location.href = googleURL;
+}
+    }
+</script>
+
+</body>
+</html>
